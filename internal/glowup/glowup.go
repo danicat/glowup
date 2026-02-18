@@ -8,15 +8,7 @@ import (
 	"github.com/firebase/genkit/go/ai"
 	"github.com/firebase/genkit/go/core"
 	"github.com/firebase/genkit/go/genkit"
-	"github.com/firebase/genkit/go/plugins/googlegenai"
 )
-
-// Config holds configuration for GlowUp service.
-type Config struct {
-	ProjectID string
-	Location  string
-	PromptDir string // Path to prompts directory
-}
 
 // Input is the input for the GlowUp flow.
 type Input struct {
@@ -38,15 +30,8 @@ const (
 // Flow export to be usable by CLI
 var GlowUpFlow *core.Flow[Input, *Output, struct{}]
 
-func Init(ctx context.Context, cfg Config) (*genkit.Genkit, error) {
-	g := genkit.Init(ctx,
-		genkit.WithPlugins(&googlegenai.VertexAI{
-			ProjectID: cfg.ProjectID,
-			Location:  cfg.Location,
-		}),
-		genkit.WithPromptDir(cfg.PromptDir),
-	)
-
+// Register registers the GlowUp flow with the given Genkit instance.
+func Register(g *genkit.Genkit) {
 	// Define the GlowUp Flow
 	GlowUpFlow = genkit.DefineFlow(g, "glowUp", func(ctx context.Context, input Input) (*Output, error) {
 		imgInput := ImageInput(input)
@@ -91,6 +76,4 @@ func Init(ctx context.Context, cfg Config) (*genkit.Genkit, error) {
 			RestoredImageBase64: outputData,
 		}, nil
 	})
-
-	return g, nil
 }

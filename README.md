@@ -7,6 +7,14 @@ GlowUp is a Genkit-powered image enhancement service written in Go. It demonstra
 *   **Image Enhancement:** Uses Genkit flows to process and enhance images.
 *   **Dual Modes:** Run it as a CLI tool for one-off tasks or as a long-running HTTP server.
 
+## 📦 Build
+
+To build the project:
+
+```bash
+go build -o bin/glowup main.go
+```
+
 ## 🚀 Usage
 
 ### 1. CLI Mode
@@ -14,13 +22,13 @@ GlowUp is a Genkit-powered image enhancement service written in Go. It demonstra
 Enhance a local image file directly from the terminal:
 
 ```bash
-go run cmd/main.go --file path/to/your/image.jpg
+go run main.go --file path/to/your/image.jpg
 ```
 
 Or provide an image URL:
 
 ```bash
-go run cmd/main.go --url https://example.com/image.jpg
+go run main.go --url https://example.com/image.jpg
 ```
 
 The result will be saved to `glowup_result.jpg`.
@@ -30,7 +38,7 @@ The result will be saved to `glowup_result.jpg`.
 Start the HTTP server to handle requests:
 
 ```bash
-go run cmd/main.go
+go run main.go
 ```
 
 The server listens on port `8080`.
@@ -50,5 +58,5 @@ The application uses the following environment variables:
 To run the Genkit Developer UI and inspect the flows:
 
 ```bash
-genkit start
+genkit start -- go run main.go
 ```
