@@ -1,0 +1,6 @@
+bin
+.genkit
+assets
+
+*.jpg
+*.png
